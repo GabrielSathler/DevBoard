@@ -1,5 +1,4 @@
 // Drizzle
-import { sql } from "drizzle-orm"
 import { pgTable, varchar, timestamp, serial, pgEnum } from "drizzle-orm/pg-core"
 
 
