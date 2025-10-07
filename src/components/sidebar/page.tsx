@@ -67,9 +67,7 @@ export function AppSidebar() {
       </SidebarContent>
       
       <SidebarFooter className="mt-auto p-4 border-t bg-black/60">
-        <div className={open ? '' : 'flex justify-center'}>
-          <ModeToggle />
-        </div>
+          <ModeToggle/>
       </SidebarFooter>
     </Sidebar>
   )

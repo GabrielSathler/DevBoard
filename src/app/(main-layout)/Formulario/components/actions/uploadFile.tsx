@@ -53,7 +53,7 @@ export const uploadFile = async (formData: FormData) => {
       bucket_ref: token,
     })
     
-    
+  
     revalidatePath('/')
     
     return { success: true, token }

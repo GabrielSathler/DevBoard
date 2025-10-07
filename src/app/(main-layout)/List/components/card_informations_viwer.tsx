@@ -5,10 +5,11 @@ import axios from "axios"
 import Image from "next/image"
 import { Upload, User, Mail, Github, File, } from 'lucide-react'
 import { Button } from "@/components/ui/button"
+import { ModalIformation } from "@/components/modalInformation/page"
 
 export default async function UserInformations() {
 
-    const listarUsuarios = await db.select().from(usuarios)
+    const listarUsuarios = await db.select().from(usuarios).orderBy(usuarios.id)
 
     const gitHubInfomations = await Promise.all(
         listarUsuarios.map(async (username) => {
@@ -23,13 +24,16 @@ export default async function UserInformations() {
                 name: response.data.name,
                 bio: response.data.bio,
                 avatar: response.data.avatar_url,
-                repos: response.data.public_repos
-
+                repos: response.data.public_repos,
+                email: username.email as string,
+                username: username.username as string,
+                github_username: username.github_username as string,
+                id: username.id as number
             }
         })
     )
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto gap-6">
             {listarUsuarios.map((username, idx) => {
                 const github = gitHubInfomations[idx];
                 return (
@@ -44,7 +48,7 @@ export default async function UserInformations() {
                                     height={50}
                                 />
                                 <div className="flex flex-col">
-                                    <CardTitle className="text-lg">{github.name}</CardTitle>
+                                    <CardTitle className="text-lg">{github.username}</CardTitle>
                                     <CardDescription>
                                         @{github.login}
                                     </CardDescription>
@@ -61,10 +65,7 @@ export default async function UserInformations() {
                                 <User size={15} color='#9810fa' className="shrink-0 mt-0.5" />
                                 <span>{github.bio}</span>
                             </div>
-
-                            <Button variant={"outline"} className="mt-auto h-10 w-full">
-                                Mais detalhes
-                            </Button>
+                            <ModalIformation username={github}/>
                         </CardContent>
                     </Card>
                 );
