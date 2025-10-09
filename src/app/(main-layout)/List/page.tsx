@@ -21,10 +21,10 @@ export default async function Home({ searchParams }: PageProps) {
     <div>
       <div className="flex flex-col mt-10 py-10">
         <div className="w-full max-w-6xl mx-auto">
-          <h1 className="text-4xl font-bold text-left">
+          <h1 className=" font-bold text-3xl lg:text-4xl text-left">
             Desenvolvedores Cadastrados
           </h1>
-          <span className="text-muted-foreground text-sm">
+          <span className="text-muted-foreground text-xs lg:text-sm ">
             Visualize e gerencie todos os desenvolvedores da sua equipe
           </span>
         </div>

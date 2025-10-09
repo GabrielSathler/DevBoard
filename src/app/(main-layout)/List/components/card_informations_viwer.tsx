@@ -92,39 +92,39 @@ export default async function UserInformations({ searchQuery, page }: Props) {
   const validGithubInfo = gitHubInfomations.filter(info => info !== null)
   
   return {
-    content: (
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+   content: (
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {listarUsuarios.map((username, idx) => {
             const github = validGithubInfo[idx]
             if (!github) return null
 
             return (
-              <Card key={username.github_username} className="flex flex-col">
-                <CardHeader>
-                  <div className="flex items-center gap-4">
+              <Card key={username.github_username} className="flex flex-col h-full">
+                <CardHeader className="pb-3">
+                  <div className="flex items-center gap-3 sm:gap-4">
                     <Image
-                      className="rounded-full"
+                      className="rounded-full flex-shrink-0"
                       src={github.avatar}
                       alt={`Avatar de ${github.name}`}
                       width={50}
                       height={50}
                     />
-                    <div className="flex flex-col">
-                      <CardTitle className="text-lg">{github.username}</CardTitle>
-                      <CardDescription>@{github.login}</CardDescription>
+                    <div className="flex flex-col min-w-0">
+                      <CardTitle className="text-base sm:text-lg truncate">{github.username}</CardTitle>
+                      <CardDescription className="truncate">@{github.login}</CardDescription>
                     </div>
                   </div>
                 </CardHeader>
 
-                <CardContent className="flex flex-col gap-3 text-sm text-muted-foreground flex-grow">
-                  <div className="flex items-center gap-2">
+                <CardContent className="flex flex-col gap-3 text-sm text-muted-foreground flex-grow pt-0">
+                  <div className="flex items-center gap-2 min-w-0">
                     <Mail size={15} color="#9810fa" className="shrink-0" />
-                    <span>{username.email}</span>
+                    <span className="truncate">{username.email}</span>
                   </div>
-                  <div className="flex items-start gap-2">
+                  <div className="flex items-start gap-2 min-w-0">
                     <User size={15} color="#9810fa" className="shrink-0 mt-0.5" />
-                    <span>{github.bio}</span>
+                    <span className="line-clamp-3">{github.bio}</span>
                   </div>
                   <ModalIformation username={github} />
                 </CardContent>

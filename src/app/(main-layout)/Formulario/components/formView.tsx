@@ -107,24 +107,24 @@ export function FormView() {
       toast.error('Erro ao enviar o formulário.')
     }
   }
-  return (
+   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <fieldset disabled={pending}>
-          <div className="grid grid-cols-1 gap-6 p-10 rounded-xl w-[800px] mx-auto border bg-gray-500/10 shadow-lg">
+          <div className="grid grid-cols-1 gap-4 sm:gap-6 p-4 sm:p-6 lg:p-10 rounded-xl w-full max-w-[800px] mx-auto border bg-gray-500/10 shadow-lg">
             <FormField
               control={form.control}
               name="firstName"
               render={({ field }) => (
                 <FormItem>
-                  <span className='text-2xl font-bold'>Informações do Desenvolvedor</span>
-                  <span className='text-muted-foreground pb-4'>Preencha as informações do Desenvolvedor para adicionar ao sistema</span>
-                  <FormLabel>
-                    <User size={15} color='#9810fa' />
-                    Nome
+                  <span className='text-xl sm:text-2xl font-bold block'>Informações do Desenvolvedor</span>
+                  <span className='text-muted-foreground text-xs sm:text-sm pb-2 sm:pb-4 block'>Preencha as informações do Desenvolvedor para adicionar ao sistema</span>
+                  <FormLabel className="flex items-center gap-2">
+                    <User size={15} color='#9810fa' className="flex-shrink-0" />
+                    <span className="text-sm sm:text-base">Nome</span>
                   </FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Digite o nome" className="p-4 shadow-sm" />
+                    <Input {...field} placeholder="Digite o nome" className="p-3 sm:p-4 shadow-sm text-sm sm:text-base" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -135,12 +135,12 @@ export function FormView() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    <Mail size={15} color='#9810fa' />
-                    Email
+                  <FormLabel className="flex items-center gap-2">
+                    <Mail size={15} color='#9810fa' className="flex-shrink-0" />
+                    <span className="text-sm sm:text-base">Email</span>
                   </FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Digite o email" className="p-4 shadow-sm" />
+                    <Input {...field} placeholder="Digite o email" className="p-3 sm:p-4 shadow-sm text-sm sm:text-base" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -151,12 +151,12 @@ export function FormView() {
               name="github_username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    <Github size={15} color='#9810fa' />
-                    Usuário do GitHub
+                  <FormLabel className="flex items-center gap-2">
+                    <Github size={15} color='#9810fa' className="flex-shrink-0" />
+                    <span className="text-sm sm:text-base">Usuário do GitHub</span>
                   </FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Digite o usuário do GitHub" className="p-4 shadow-sm focus:border-blue-500" />
+                    <Input {...field} placeholder="Digite o usuário do GitHub" className="p-3 sm:p-4 shadow-sm focus:border-blue-500 text-sm sm:text-base" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -164,19 +164,24 @@ export function FormView() {
             />
 
             <div className="space-y-2">
-              <FormLabel>
-                <File size={15} color='#9810fa' />
-                Cúrriculo (PDF)
+              <FormLabel className="flex items-center gap-2">
+                <File size={15} color='#9810fa' className="flex-shrink-0" />
+                <span className="text-sm sm:text-base">Cúrriculo (PDF)</span>
               </FormLabel>
               <Dropzone file={file} setFile={setFile} />
-              {!file && (<span className="text-xs">Currículo obrigatório*</span>)}
+              {!file && (<span className="text-xs sm:text-sm">Currículo obrigatório*</span>)}
             </div>
-            <div className="flex justify-center shadow-lg">
+            <div className="flex justify-center shadow-lg mt-2 sm:mt-4">
               <Button
                 type="submit"
-                className="hover:cursor-pointer bg-purple-950 hover:bg-purple-600/90 text-white p-6 text-lg sm:text-xl mt-2 w-full"
+                className="hover:cursor-pointer bg-purple-950 hover:bg-purple-600/90 text-white p-4 sm:p-6 text-base sm:text-lg lg:text-xl w-full"
               >
-                {pending ? 'Enviando...' : <>Cadastrar Desenvolvedor <Upload className="ml-2" /></>}
+                {pending ? 'Enviando...' : (
+                  <span className="flex items-center justify-center gap-2">
+                    <span>Cadastrar Desenvolvedor</span>
+                    <Upload className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </span>
+                )}
               </Button>
             </div>
           </div>

@@ -125,24 +125,24 @@ export function ModalIformation({ username }: Informations) {
                     Mais Detalhes
                 </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl">
+            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
-                    <DialogTitle>Perfil de {username.username}</DialogTitle>
-                    <DialogDescription className="text-muted-foreground">
+                    <DialogTitle className="text-base sm:text-lg">Perfil de {username.username}</DialogTitle>
+                    <DialogDescription className="text-muted-foreground text-sm">
                         Aqui você poderá visualizar e editar informações básicas do perfil do usuário cadastrado.
                     </DialogDescription>
                 </DialogHeader>
 
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)}>
-                        <div className="flex gap-6">
-                            <div className="flex-shrink-0">
+                        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+                            <div className="flex-shrink-0 flex flex-col items-center sm:items-start">
                                 <Image
                                     className="rounded-full"
                                     src={username.avatar}
                                     alt={`Avatar de ${username.name}`}
-                                    width={150}
-                                    height={150}
+                                    width={120}
+                                    height={120}
                                 />
                                 <Button
                                     variant={"ghost"}
@@ -219,10 +219,10 @@ export function ModalIformation({ username }: Informations) {
                             </div>
                         </div>
 
-                        <DialogFooter className="flex flex-row justify-between w-full mt-6 pt-4 border-t">
+                        <DialogFooter className="flex flex-col sm:flex-row justify-between w-full mt-6 pt-4 border-t gap-2 sm:gap-0">
                             <Button
                                 type="button"
-                                className="cursor-pointer"
+                                className="cursor-pointer w-full sm:w-auto"
                                 onClick={handleDelete}
                                 variant={"destructive"}
                                 disabled={isPending}
@@ -233,25 +233,26 @@ export function ModalIformation({ username }: Informations) {
                             {!isEditing ? (
                                 <Button
                                     type="button"
-                                    className="cursor-pointer"
+                                    className="cursor-pointer w-full sm:w-auto"
                                     onClick={() => setIsEditing(true)}
                                     variant={"outline"}
                                 >
                                     Editar
                                 </Button>
                             ) : (
-                                <div className="flex gap-2">
+                                <div className="flex gap-2 w-full sm:w-auto">
                                     <Button
                                         type="button"
                                         onClick={handleCancel}
                                         variant={"ghost"}
                                         disabled={isPending}
+                                        className="flex-1 sm:flex-none"
                                     >
                                         Cancelar
                                     </Button>
                                     <Button
                                         type="submit"
-                                        className="cursor-pointer"
+                                        className="cursor-pointer flex-1 sm:flex-none"
                                         disabled={isPending}
                                     >
                                         {isPending ? 'Salvando...' : 'Salvar'}
