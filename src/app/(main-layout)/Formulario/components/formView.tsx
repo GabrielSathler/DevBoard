@@ -30,6 +30,8 @@ export function FormView() {
   const [filled, setFilled] = useState(false)
   const [pending, startTransition] = useTransition()
 
+  console.log(filled)
+
   const form = useForm<FormValues>({
     resolver: zodResolver(validationSchema),
     defaultValues: {
@@ -46,7 +48,7 @@ export function FormView() {
     try{
      const response = await axios.get(`https://api.github.com/users/${username}`)
      return response.data.login
-    }catch(error){
+    }catch{
       return null
     }
   }
@@ -81,7 +83,7 @@ export function FormView() {
       fd.set('curriculun', file, file.name)
       const uploadResult = await uploadFile(fd)
       if (!uploadResult || !uploadResult.success || !uploadResult.token) {
-        toast.error(uploadResult?.error || 'Erro ao enviar o arquivo PDF.')
+        toast.error('Erro ao enviar o arquivo PDF.')
         return
       }
       const formdata = new FormData()
@@ -93,15 +95,15 @@ export function FormView() {
       formdata.set('curriculun', uploadResult.token)
 
       startTransition(() => {
-        formAction(formdata).then((res) => {
+        formAction(formdata).then(() => {
           toast.success('Cadastro realizado com sucesso!')
           setFile(null)
           form.reset()
-        }).catch((err) => {
+        }).catch(() => {
           toast.error('Erro ao salvar cadastro.')
         })
       })
-    } catch (err) {
+    } catch {
       toast.error('Erro ao enviar o formulário.')
     }
   }

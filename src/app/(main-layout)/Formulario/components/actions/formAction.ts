@@ -19,7 +19,7 @@ export const formAction = async (formData: FormData) => {
 
         revalidatePath('/')
         return created
-    } catch (error) {
+    } catch {
         throw new Error("Erro ao criar usuário");
     }
     
@@ -50,9 +50,8 @@ export const formActionModal = async(formData: FormData) => {
         }
         revalidatePath("/List")
         return edited;
-    } catch (error) {
-        console.error("Erro ao atualizar:", error);
-        throw new Error("Erro ao atualizar usuário");
+    } catch {
+        console.error("Erro ao atualizar usuario");
     }
 }
 
@@ -71,12 +70,11 @@ export const formActionDelete = async(formData: FormData) => {
             .returning();
 
         if (!deleted) {
-            throw new Error("Usuário não encontrado");
+            console.error("Usuário não encontrado");
         }
         revalidatePath("/List")
         return deleted;
-    } catch (error) {
-        console.error("Erro ao deleter:", error);
-        throw new Error("Erro ao deletar usuário");
+    } catch {
+        console.error("Erro ao deleter usuario");
     }
 }

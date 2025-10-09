@@ -14,11 +14,11 @@ export const uploadFile = async (formData: FormData) => {
     const file = formData.get('curriculun') as File | null
 
     if (!file) {
-      return { success: false, error: 'Arquivo não enviado.' }
+      return { success: false }
     }
 
     if (file.size === 0) {
-      return { success: false, error: 'Selecione um arquivo.' }
+      return { success: false }
     }
 
     const name = file.name
@@ -27,15 +27,14 @@ export const uploadFile = async (formData: FormData) => {
       : ''
 
     if (!(extension === 'pdf' && file.type === 'application/pdf')) {
-      return { success: false, error: 'Apenas arquivos PDF são permitidos.' }
+      return { success: false }
     }
 
-    console.log('✅ Arquivo válido, convertendo...')
     const ab = await file.arrayBuffer()
     const buf = Buffer.from(new Uint8Array(ab))
     const token = uuidv4()
  
-    const uploadResult = await s3.send(
+    await s3.send(
       new PutObjectCommand({
         Bucket: process.env.BUCKET_NAME,
         Key: token,
@@ -44,6 +43,7 @@ export const uploadFile = async (formData: FormData) => {
         ContentLength: buf.byteLength,
       })
     )
+   
     await db.insert(files).values({
       token: token,
       mime_type: file.type,
@@ -58,8 +58,8 @@ export const uploadFile = async (formData: FormData) => {
     
     return { success: true, token }
     
-  } catch (error) {
+  } catch {
    
-    return { success: false, error: 'Erro inesperado ao enviar o arquivo.' }
+    return { success: false }
   }
 }

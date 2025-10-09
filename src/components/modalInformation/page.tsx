@@ -1,6 +1,6 @@
 "use client"
 
-import { startTransition, useState } from 'react'
+import { useState } from 'react'
 import {
     Dialog,
     DialogContent,
@@ -29,7 +29,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
 import { formActionDelete, formActionModal } from '@/app/(main-layout)/Formulario/components/actions/formAction'
-import { DeleteConfirmation } from '../deleteConfimation/page'
 
 // Schema de validação
 const formSchema = z.object({
@@ -80,20 +79,20 @@ export function ModalIformation({ username }: Informations) {
 
 
             await formActionModal(formdata)
-                .then((res) => {
+                .then(() => {
                     toast.success('Perfil atualizado com sucesso!')
                     setIsEditing(false) 
                     setOpen(false) 
                 })
-                .catch((err) => {
+                .catch(() => {
                     console.error('Erro:')
-                    toast.error(err.message || 'Erro ao salvar cadastro.')
+                    toast.error( 'Erro ao salvar cadastro.')
                 })
                 .finally(() => {
                     setIsPending(false)
                 })
 
-        } catch (err) {
+        } catch {
             console.error('Erro no submit:')
             toast.error('Erro ao atualizar perfil')
             setIsPending(false)
@@ -109,7 +108,7 @@ export function ModalIformation({ username }: Informations) {
             await formActionDelete(formdata);
             toast.success('Usuário deletado com sucesso!')
             setOpen(false)
-        } catch (error) {
+        } catch {
             toast.error('Erro ao deletar usuário')
         }
     }
